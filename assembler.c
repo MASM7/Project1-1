@@ -1,4 +1,4 @@
-// assembler.c
+// assembler.c	
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
@@ -20,9 +20,9 @@ void assembler(const char *inputFile, const char *outputFile) {
     }
 
     while (fgets(line, sizeof(line), fp) != NULL) {
-        line[strcspn(line, "\n")] = 0;  //rm newline
+        line[strcspn(line, "\n")] = 0;  // Remove newline
 
-        // rm space
+        // Remove spaces
         char command[50];
         int j = 0;
         for (int i = 0; line[i] != '\0'; i++) {
@@ -30,9 +30,8 @@ void assembler(const char *inputFile, const char *outputFile) {
                 command[j++] = line[i];
             }
         }
-        command[j] = '\0'; 
+        command[j] = '\0';
 
-        
         if (strcmp(command, "RA=RA+RB") == 0) {
             fprintf(fp2, "00000000\n");
         } else if (strcmp(command, "RB=RA+RB") == 0) {
@@ -43,8 +42,6 @@ void assembler(const char *inputFile, const char *outputFile) {
             fprintf(fp2, "00010100\n");
         } else if (strcmp(command, "RO=RA") == 0) {
             fprintf(fp2, "00100000\n");
-
-        
         } else if (strncmp(command, "RA=", 3) == 0) {
             int imm = atoi(command + 3);
             switch (imm) {
@@ -103,4 +100,5 @@ void assembler(const char *inputFile, const char *outputFile) {
     fclose(fp);
     fclose(fp2);
 }
+
 
